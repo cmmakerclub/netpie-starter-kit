@@ -6,13 +6,13 @@
     <script src="https://cdn.netpie.io/microgear.js"></script>
     <script type="text/javascript">
 
-      const APPID = "YOUR_APP_INFO";
-      const KEY = "YOUR_APP_INFO";
-      const SECRET = "YOUR_APP_INFO"
+      const APPID = "CNX";
+      const KEY = "t2KGUtafmLearhw";
+      const SECRET = "r8ofs9Ya13WpRIC88PFFviwbM"
 
-      const DEVICE_NAME = "html5";
+      const DEVICE_NAME = "pure";
 
-      var microgear = Microgear.create({
+      microgear = Microgear.create({
         key: KEY,
         secret: SECRET,
         alias: DEVICE_NAME
@@ -20,14 +20,25 @@
 
       microgear.on('connected', function () {
         microgear.setAlias(DEVICE_NAME);
+        console.log('connected')
       });
 
+      // connect
       microgear.resettoken(function (err) {
         microgear.connect(APPID);
       });
+
     </script>
 </head>
 <body>
-<div id="data">_____</div>
+<div id="data">[__CLICK TO SEND MESSAGE___]</div>
+<script>
+  document.getElementById('data').onclick = function () {
+    console.log('hello')
+    microgear.chat('nat', '0')
+    alert("published!")
+  }
+</script>
+
 </body>
 </html>
