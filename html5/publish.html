@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.netpie.io/microgear.js"></script>
+    <script type="text/javascript">
+
+      const APPID = "YOUR_APP_INFO";
+      const KEY = "YOUR_APP_INFO";
+      const SECRET = "YOUR_APP_INFO"
+
+      const DEVICE_NAME = "html5";
+
+      var microgear = Microgear.create({
+        key: KEY,
+        secret: SECRET,
+        alias: DEVICE_NAME
+      });
+
+      microgear.on('connected', function () {
+        microgear.setAlias(DEVICE_NAME);
+      });
+
+      microgear.resettoken(function (err) {
+        microgear.connect(APPID);
+      });
+    </script>
+</head>
+<body>
+<div id="data">_____</div>
+</body>
+</html>
