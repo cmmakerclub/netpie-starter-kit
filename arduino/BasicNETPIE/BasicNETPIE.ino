@@ -1,5 +1,5 @@
 /*  NETPIE ESP8266 basic sample                            */
-/*  More information visit : https://netpie.io             */
+/*  More information visit : https://cmmakerclub.com            */
 
 #include <ESP8266WiFi.h>
 #include <MicroGear.h>
@@ -10,7 +10,7 @@ const char* password = "espertap";
 #define APPID   "CNX"
 #define KEY     "tr72j3f0O5H3Tle"
 #define SECRET  "fo0u4urmNAEEp9iDKUUV2xTAz"
-#define ALIAS   "nat"
+#define DEVICE_NAME   "nat"
 
 WiFiClient client;
 
@@ -31,25 +31,11 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
   }
 }
 
-void onFoundgear(char *attribute, uint8_t* msg, unsigned int msglen) {
-  Serial.print("Found new member --> ");
-  for (int i = 0; i < msglen; i++)
-    Serial.print((char)msg[i]);
-  Serial.println();
-}
-
-void onLostgear(char *attribute, uint8_t* msg, unsigned int msglen) {
-  Serial.print("Lost member --> ");
-  for (int i = 0; i < msglen; i++)
-    Serial.print((char)msg[i]);
-  Serial.println();
-}
-
 /* When a microgear is connected, do this */
 void onConnected(char *attribute, uint8_t* msg, unsigned int msglen) {
   Serial.println("Connected to NETPIE...");
   /* Set the alias of this microgear ALIAS */
-  microgear.setAlias(ALIAS);
+  microgear.setAlias(DEVICE_NAME);
 }
 
 
@@ -59,12 +45,6 @@ void setup() {
 
   /* Call onMsghandler() when new message arraives */
   microgear.on(MESSAGE, onMsghandler);
-
-  /* Call onFoundgear() when new gear appear */
-  microgear.on(PRESENT, onFoundgear);
-
-  /* Call onLostgear() when some gear goes offline */
-  microgear.on(ABSENT, onLostgear);
 
   /* Call onConnected() when NETPIE connection is established */
   microgear.on(CONNECTED, onConnected);
@@ -86,7 +66,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   /* Initial with KEY, SECRET and also set the ALIAS here */
-  microgear.init(KEY, SECRET, ALIAS);
+  microgear.init(KEY, SECRET, DEVICE_NAME);
 
   /* connect to NETPIE to a specific APPID */
   microgear.connect(APPID);
